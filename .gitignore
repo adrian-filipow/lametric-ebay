@@ -10,3 +10,6 @@ yarn-error.log
 
 # Code coverage
 coverage
+
+# MacOS finder related
+.DS_Store
