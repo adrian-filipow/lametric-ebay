@@ -9,6 +9,7 @@ const getBestPriceForProduct = {
       .required()
       .valid(...globalIdList),
     payload: Joi.string().required().min(2).max(300),
+    title: Joi.string().required().min(2).max(50),
     goal: Joi.string().min(1).max(20),
   }),
 };
