@@ -1,9 +1,11 @@
-const roles = ['user', 'premium', 'admin'];
+const roles = ['user', 'premium', 'billing', 'support', 'admin'];
 
 const roleRights = new Map();
-roleRights.set(roles[0], ['usePrivateRoutes']);
-roleRights.set(roles[1], ['usePrivateRoutes', 'usePremiumRoutes']);
-roleRights.set(roles[2], ['getUsers', 'manageUsers']);
+roleRights.set(roles[0], ['usePrivateRoutes']); // user
+roleRights.set(roles[1], ['usePrivateRoutes', 'usePremiumRoutes']); // premium
+roleRights.set(roles[2], ['getUsers']); // billing
+roleRights.set(roles[3], ['getUsers']); // support
+roleRights.set(roles[4], ['getUsers', 'manageUsers']); // admin
 
 module.exports = {
   roles,
