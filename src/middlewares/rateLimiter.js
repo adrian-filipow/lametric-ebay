@@ -36,7 +36,7 @@ const defaultPublicLimiter = rateLimit({
   store: redisStoreConfig,
   windowMs: 60 * 1000, // 1 minute
   max: 20,
-  skipSuccessfulRequests: true,
+  skipSuccessfulRequests: false,
 });
 
 /**
@@ -47,7 +47,7 @@ const defaultPrivateLimiter = rateLimit({
   store: redisStoreConfig,
   windowMs: 60 * 1000, // 1 minute
   max: 40,
-  skipSuccessfulRequests: true,
+  skipSuccessfulRequests: false,
 });
 
 /**
@@ -58,7 +58,7 @@ const premiumPrivateLimiter = rateLimit({
   store: redisStoreConfig,
   windowMs: 60 * 1000, // 1 minute
   max: 10000,
-  skipSuccessfulRequests: true,
+  skipSuccessfulRequests: false,
 });
 
 module.exports = {
