@@ -8,27 +8,15 @@
   - state of the rate limiter middleware
   - background processing queues
 
-## Features
+## LaMetric apps
 
-### Buyers (No account required)
-
-- best price for keyword
-- observ auction
-
-Rate limits:
-
-- 20 requests per windowMs with a window of 60 seconds
-
-### Sellers (User account required)
-
-- revenue
-- ratings
-- notifications
+- eBay: best price for product
+- eBay: rare product observation
+- eBay: observe auction
 
 Rate limits:
 
-- 40 requests per windowMs with a window of 60 seconds (included)
-- unlimited requests if billing is enabled
+- 20 requests per windowMs with a window of 60 seconds per IP-Address
 
 ## development
 
