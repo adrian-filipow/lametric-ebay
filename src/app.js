@@ -9,7 +9,7 @@ const httpStatus = require('http-status');
 const config = require('./config/config');
 const morgan = require('./config/morgan');
 const { jwtStrategy } = require('./config/passport');
-const { authLimiter } = require('./middlewares/rateLimiter');
+const { authLimiter, PublicLimiter, PrivateLimiter, PremiumLimiter } = require('./middlewares/rateLimiter');
 const routes = require('./routes/v1');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
@@ -49,6 +49,15 @@ passport.use('jwt', jwtStrategy);
 if (config.env === 'production') {
   app.use('/v1/auth', authLimiter);
 }
+
+// limit repeated requests to public endpoints
+app.use('/v1/public', PublicLimiter);
+
+// limit repeated requests to private endpoints
+app.use('/v1/private', PrivateLimiter);
+
+// limit repeated requests to premium endpoints
+app.use('/v1/premium', PremiumLimiter);
 
 // v1 api routes
 app.use('/v1', routes);

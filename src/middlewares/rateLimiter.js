@@ -32,7 +32,7 @@ const authLimiter = rateLimit({
  * default public limiter
  * used on /v1/public routes
  */
-const defaultPublicLimiter = rateLimit({
+const PublicLimiter = rateLimit({
   store: redisStoreConfig,
   windowMs: 60 * 1000, // 1 minute
   max: 20,
@@ -43,7 +43,7 @@ const defaultPublicLimiter = rateLimit({
  * default private limiter
  * used on /v1/private routes
  */
-const defaultPrivateLimiter = rateLimit({
+const PrivateLimiter = rateLimit({
   store: redisStoreConfig,
   windowMs: 60 * 1000, // 1 minute
   max: 40,
@@ -52,9 +52,9 @@ const defaultPrivateLimiter = rateLimit({
 
 /**
  * premium private limiter
- * used on /v1/private routes when user has billing enabled
+ * used on /v1/premium routes when user has billing enabled
  */
-const premiumPrivateLimiter = rateLimit({
+const PremiumLimiter = rateLimit({
   store: redisStoreConfig,
   windowMs: 60 * 1000, // 1 minute
   max: 10000,
@@ -63,7 +63,7 @@ const premiumPrivateLimiter = rateLimit({
 
 module.exports = {
   authLimiter,
-  defaultPublicLimiter,
-  defaultPrivateLimiter,
-  premiumPrivateLimiter,
+  PublicLimiter,
+  PrivateLimiter,
+  PremiumLimiter,
 };
