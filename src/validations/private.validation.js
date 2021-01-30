@@ -1,12 +1,16 @@
 const Joi = require('joi');
 
-const getPrivates = {
+const { globalIdList } = require('../ebay/data/globalIdList');
+
+const getBestPriceForProduct = {
   query: Joi.object().keys({
-    mode: Joi.string().required().valid('keyword', 'auction'),
-    keywords: Joi.string().min(2).max(300),
+    market: Joi.string()
+      .required()
+      .valid(...globalIdList),
+    keywords: Joi.string().required().min(2).max(300),
   }),
 };
 
 module.exports = {
-  getPrivates,
+  getBestPriceForProduct,
 };
