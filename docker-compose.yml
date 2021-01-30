@@ -5,7 +5,7 @@ services:
     build: .
     image: node-app
     environment:
-      - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+      - MONGODB_URL=mongodb://mongodb/lametric-ebay
     ports:
       - '3000:3000'
     depends_on:
@@ -15,12 +15,18 @@ services:
     networks:
       - node-network
 
-  mongodb:
+  db:
     image: mongo:4.2.1-bionic
-    ports:
-      - '27017:27017'
     volumes:
       - dbdata:/data/db
+    networks:
+      - node-network
+
+  redis:
+    image: redis:latest
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
     networks:
       - node-network
 
