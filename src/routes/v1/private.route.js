@@ -6,6 +6,12 @@ const privateController = require('../../controllers/private.controller');
 
 const router = express.Router();
 
-router.route('/').get(auth('usePrivateRoutes'), validate(privateValidation.getPrivates), privateController.getPrivates);
+router
+  .route('/bestPriceForProduct')
+  .get(
+    auth('usePrivateRoutes'),
+    validate(privateValidation.getBestPriceForProduct),
+    privateController.getBestPriceForProduct
+  );
 
 module.exports = router;
