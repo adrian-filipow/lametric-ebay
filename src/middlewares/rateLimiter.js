@@ -19,7 +19,7 @@ const redisStoreConfig = new RedisStore({
 
 const authLimiter = rateLimit({
   store: redisStoreConfig,
-  windowMs: 15 * 60 * 1000,
+  windowMs: 15 * 60 * 1000, // 15 minutes
   max: 20,
   skipSuccessfulRequests: true,
 });
