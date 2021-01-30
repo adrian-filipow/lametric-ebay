@@ -43,37 +43,48 @@ const { ebay } = require('../../config/config');
 }
  */
 
-const handleResult = (result) => {
-  // eslint-disable-next-line no-console
-  console.log(result);
+const handleResult = (result, options) => {
+  const chartData = [];
+  for (let i = 0; i < result[0].searchResult[0].item.length; i += 1) {
+    const item = result[0].searchResult[0].item[i];
+    chartData.push(item.sellingStatus[0].currentPrice[0].__value__);
+  }
   const refinedResult = {
     frames: [
       {
-        text: '4K TV 50 Inch',
+        text: options.title,
         icon: 'a15297',
       },
       {
-        text: '799,99 €',
+        text: `${result[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0].__value__} ${result[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0]['@currencyId']}`,
         icon: 'i635',
       },
       {
-        text: '-20 €',
-        icon: 'i10726',
-      },
-      {
-        text: '32 Offers',
+        text: '32 total entries',
         icon: null,
       },
       {
         index: 4,
-        chartData: [799, 800, 850, 900, 950, 1200, 1500],
+        chartData,
       },
     ],
   };
+  if (options.goal) {
+    refinedResult.frames.splice(2, 0, {
+      text: `${
+        Number.parseFloat(options.goal) -
+        Number.parseFloat(result[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0].__value__)
+      } ${result[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0]['@currencyId']}`,
+      icon:
+        Number.parseInt(options.goal, 10) - result[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0].__value__ < 0
+          ? 'i10726'
+          : 'i59',
+    });
+  }
   return refinedResult;
 };
 
-const getBestPriceForProduct = (options) => {
+const getBestPriceForProduct = async (options) => {
   const getBestPriceForProductClient = new Ebay({
     clientID: ebay.ebayClientId, // Client Id key provided when you register in eBay developers program.
     limit: 7, // fetch items functionality - Number that limits the number of data you need in response.
@@ -89,14 +100,16 @@ const getBestPriceForProduct = (options) => {
       keywords: options.payload,
       sortOrder: 'PricePlusShippingLowest', // https://developer.ebay.com/devzone/finding/callref/extra/fndcmpltditms.rqst.srtordr.html
     });
-    return handleResult(results);
+    const r = await results;
+    return handleResult(r, options);
   }
   if (options.mode === 'byProduct') {
     const results = getBestPriceForProductClient.findItemsByProduct({
       productId: Number.parseInt(options.payload, 10),
       sortOrder: 'PricePlusShippingLowest', // https://developer.ebay.com/devzone/finding/callref/extra/fndcmpltditms.rqst.srtordr.html
     });
-    return handleResult(results);
+    const r = await results;
+    return handleResult(r, options);
   }
 };
 
