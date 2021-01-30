@@ -16,6 +16,12 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 RUN if [ "$USER_GID" != "1000" ] || [ "$USER_UID" != "1000" ]; then groupmod --gid $USER_GID node && usermod --uid $USER_UID --gid $USER_GID node; fi
 
+# configure aliases to use services e.g. redis-cli and mongo without flags
+# service names e.g. "db" and "redis" are replacing "localhost:PORT" / "127.0.0.1:PORT" notation
+# append aliases to the node users bashrc file
+RUN echo 'alias redis-cli="redis-cli -u redis://redis:6379"' >> /home/node/.bashrc \
+    && echo 'alias mongo="mongo --host db:27017"' >> /home/node/.bashrc
+
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
