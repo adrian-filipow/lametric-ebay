@@ -4,10 +4,12 @@ const { globalIdList } = require('../ebay/data/globalIdList');
 
 const getBestPriceForProduct = {
   query: Joi.object().keys({
+    mode: Joi.string().required().valid('byKeyword', 'byProduct'),
     market: Joi.string()
       .required()
       .valid(...globalIdList),
-    keywords: Joi.string().required().min(2).max(300),
+    payload: Joi.string().required().min(2).max(300),
+    goal: Joi.string().min(1).max(20),
   }),
 };
 
