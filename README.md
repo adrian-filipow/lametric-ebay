@@ -28,3 +28,19 @@ Rate limits:
 
 1. open project in remote container
 1. use yarn with existing scripts
+
+## deployment: production
+
+### prerequisits:
+
+- running docker swarm cluster
+  - treafik v2 running on manager/s
+  - consul or etcd for sharing let's encrypt certs
+- mongodb cluster (e.g. atlas)
+
+### configuration
+
+### deploy:
+  - create .env from .example.env
+  - edit docker-compose.treafik.yml (uncomment mongodb service if not using atlas)
+  - docker stack deploy -c docker-compose.treafik.yml lametric-ebay
