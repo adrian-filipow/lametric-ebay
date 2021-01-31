@@ -8,9 +8,6 @@ services:
       mode: replicated
       # run at least 3 replicas for rolling updates
       replicas: 3
-      update-delay: 5s
-      # do not increase if you have less than 9 replicas
-      update-parallelism: 1
       placement:
         constraints:
           - node.labels.GeneralPurposeNode == true
@@ -66,7 +63,6 @@ services:
   #   deploy:
   #     mode: replicated
   #     replicas: 1
-  #     update-delay: 0s
   #     placement:
   #       constraints:
   #         - node.labels.PersistantNode == true
@@ -79,6 +75,8 @@ services:
   #       reservations:
   #         cpus: '0'
   #         memory: 0M
+  #     restart_policy:
+  #       condition: on-failure
   #   volumes:
   #     - db-data:/data/db
 
@@ -101,7 +99,8 @@ services:
         reservations:
           cpus: '0'
           memory: 0M
-    restart: unless-stopped
+      restart_policy:
+        condition: on-failure
     volumes:
       - redis-data:/data
 
