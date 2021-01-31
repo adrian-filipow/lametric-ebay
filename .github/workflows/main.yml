@@ -65,7 +65,41 @@ jobs:
         with:
           push: true
           file: ./Dockerfile.prod
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/lametric-ebay-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/lametric-ebay-api:staging
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+  trigger-rollout-in-staging-environment:
+    needs: build-image
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Execute rollout in staging environment
+        uses: distributhor/workflow-webhook@v1
+        env:
+          webhook_url: ${{ secrets.STAGING_WEBHOOK_URL }}
+
+  trigger-external-integration-testing:
+    needs: trigger-rollout-in-staging-environment
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Execute external automated testing using staging environment
+        uses: distributhor/workflow-webhook@v1
+        env:
+          webhook_url: ${{ secrets.STAGING_TEST_EXTERNAL_WEBHOOK_URL }}
+
+  discord-notification:
+    needs: trigger-external-integration-testing
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send discord notification
+        uses: distributhor/workflow-webhook@v1
+        env:
+          webhook_url: ${{ secrets.STAGING_DISCORD_WEBHOOK_URL }}
+          data: ${{ secrets.STAGING_DISCORD_WEBHOOK_DATA }}
