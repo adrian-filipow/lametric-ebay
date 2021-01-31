@@ -14,6 +14,9 @@ services:
       placement:
         constraints:
           - node.labels.GeneralPurposeNode == true
+          # using isWorker true instead of using docker swarms integrated role labels
+          # to have the ability to place this service on managers that act as workers
+          - node.labels.isWorker == true
       resources:
         limits:
           cpus: '2'
@@ -68,6 +71,7 @@ services:
   #       constraints:
   #         - node.labels.PersistantNode == true
   #         - node.labels.DatabaseNode == true
+  #         - node.labels.isWorker == true
   #     resources:
   #       limits:
   #         cpus: '2'
@@ -89,6 +93,7 @@ services:
         constraints:
           - node.labels.PersistantNode == true
           - node.labels.RedisNode == true
+          - node.labels.isWorker == true
       resources:
         limits:
           cpus: '2'
