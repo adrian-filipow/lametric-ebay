@@ -13,15 +13,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out repository under $GITHUB_WORKSPACE, so it can vbe accessed in jobs
       - uses: actions/checkout@v2
 
-      - name: Start Docker for Mongodb
+      - name: Start Docker Container for Mongodb
         run: docker run -d -p 27017:27017 mongo
 
-      # Run all tests defined in the application
+      - name: Start Docker Container for Redis
+        run: docker run -d -p 6379:6379 redis
+
       - name: Run application tests
         uses: actions/setup-node@v2
+        env:
+          PORT: 3000
+          MONGODB_URL: mongodb://mongodb/node-boilerplate
+          JWT_SECRET: thisisasamplesecret
+          JWT_ACCESS_EXPIRATION_MINUTES: 30
+          JWT_REFRESH_EXPIRATION_DAYS: 30
+          SMTP_HOST: email-server
+          SMTP_PORT: 587
+          SMTP_USERNAME: email-server-username
+          SMTP_PASSWORD: email-server-password
+          EMAIL_FROM: support@yourapp.com
+          REDIS_URL: redis://@redis:6379
+          EBAY_CLIENT_ID: YOURCLIENTAPPID
+          EBAY_ENV: SANDBOX
       
       - run: yarn install
       - run: yarn coverage
