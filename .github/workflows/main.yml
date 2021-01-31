@@ -25,7 +25,7 @@ jobs:
         uses: actions/setup-node@v2
       
       - run: yarn install
-      - run: yarn coverage
+      - run: yarn coverage # will be changed to "yarn coverage:coveralls as soon app will be used in production"
         env:
           PORT: 3000
           MONGODB_URL: mongodb://127.0.0.1:27017/node-boilerplate
@@ -42,6 +42,8 @@ jobs:
           EBAY_ENV: SANDBOX
 
   build-image:
+    needs: test-application
+
     runs-on: ubuntu-latest
 
     steps:
