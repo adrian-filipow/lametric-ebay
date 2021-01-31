@@ -1,4 +1,4 @@
-name: Lametric CI
+name: Lametric PRODUCTION CI
 
 on:
   # has to be triggered manually
