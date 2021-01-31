@@ -77,10 +77,10 @@ jobs:
 
     steps:
       - name: Execute rollout in staging environment
-      uses: fjogeleit/http-request-action@master
-      with:
-        url: ${{ secrets.STAGING_WEBHOOK_URL }}
-        method: 'GET'
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: ${{ secrets.STAGING_WEBHOOK_URL }}
+          method: 'GET'
 
   trigger-external-integration-testing:
     needs: trigger-rollout-in-staging-environment
@@ -89,10 +89,10 @@ jobs:
 
     steps:
       - name: Execute external automated testing using staging environment
-      uses: fjogeleit/http-request-action@master
-      with:
-        url: ${{ secrets.STAGING_TEST_EXTERNAL_WEBHOOK_URL }}
-        method: 'GET'
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: ${{ secrets.STAGING_TEST_EXTERNAL_WEBHOOK_URL }}
+          method: 'GET'
 
   discord-notification:
     needs: trigger-external-integration-testing
@@ -101,8 +101,8 @@ jobs:
 
     steps:
       - name: Send discord notification
-      uses: fjogeleit/http-request-action@master
-      with:
-        url: ${{ secrets.STAGING_DISCORD_WEBHOOK_URL }}
-        method: 'POST'
-        data: ${{ secrets.STAGING_DISCORD_WEBHOOK_DATA }}
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: ${{ secrets.STAGING_DISCORD_WEBHOOK_URL }}
+          method: 'POST'
+          data: ${{ secrets.STAGING_DISCORD_WEBHOOK_DATA }}
