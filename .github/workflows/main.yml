@@ -23,6 +23,9 @@ jobs:
 
       - name: Run application tests
         uses: actions/setup-node@v2
+      
+      - run: yarn install
+      - run: yarn coverage
         env:
           PORT: 3000
           MONGODB_URL: mongodb://mongodb/node-boilerplate
@@ -37,6 +40,3 @@ jobs:
           REDIS_URL: redis://@redis:6379
           EBAY_CLIENT_ID: YOURCLIENTAPPID
           EBAY_ENV: SANDBOX
-      
-      - run: yarn install
-      - run: yarn coverage
