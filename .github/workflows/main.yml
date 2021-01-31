@@ -28,7 +28,7 @@ jobs:
       - run: yarn coverage
         env:
           PORT: 3000
-          MONGODB_URL: mongodb://mongodb/node-boilerplate
+          MONGODB_URL: mongodb://127.0.0.1:27017/node-boilerplate
           JWT_SECRET: thisisasamplesecret
           JWT_ACCESS_EXPIRATION_MINUTES: 30
           JWT_REFRESH_EXPIRATION_DAYS: 30
@@ -37,6 +37,6 @@ jobs:
           SMTP_USERNAME: email-server-username
           SMTP_PASSWORD: email-server-password
           EMAIL_FROM: support@yourapp.com
-          REDIS_URL: redis://@redis:6379
+          REDIS_URL: redis://@127.0.0.1:6379
           EBAY_CLIENT_ID: YOURCLIENTAPPID
           EBAY_ENV: SANDBOX
