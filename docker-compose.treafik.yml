@@ -2,14 +2,31 @@ version: '3.3'
 
 services:
   node-app:
-    build: .
+    # your image
     image: node-app
+    deploy:
+      mode: replicated
+      # run at least 3 replicas for rolling updates
+      replicas: 3
+      update-delay: 5s
+      # do not increase if you have less than 9 replicas
+      update-parallelism: 1
+      placement:
+        constraints:
+          - node.labels.GeneralPurposeNode == true
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2048M
+        reservations:
+          cpus: '0'
+          memory: 0M
+      restart_policy:
+        condition: on-failure
     environment:
       - MONGODB_URL=mongodb://mongodb/lametric-ebay
     depends_on:
       - mongodb
-    volumes:
-      - .:/usr/src/node-app
     networks:
       - traefik-public
     labels:
@@ -39,14 +56,46 @@ services:
         - traefik.http.routers.traefik-public-https.tls.certresolver=le
         # Define the port inside of the Docker service to use
         - traefik.http.services.traefik-public.loadbalancer.server.port=3000
-
+  
+  # uncomment if you are not unsing an external mongodb
   # mongodb:
   #   image: mongo:4.2.1-bionic
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 1
+  #     update-delay: 0s
+  #     placement:
+  #       constraints:
+  #         - node.labels.PersistantNode == true
+  #         - node.labels.DatabaseNode == true
+  #     resources:
+  #       limits:
+  #         cpus: '2'
+  #         memory: 2048M
+  #       reservations:
+  #         cpus: '0'
+  #         memory: 0M
   #   volumes:
   #     - db-data:/data/db
 
   redis:
     image: redis:6
+    deploy:
+      mode: replicated
+      # do not increase: redis does not store any critical information
+      # use vertical scaling instead of horizontal scaling
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.PersistantNode == true
+          - node.labels.RedisNode == true
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2048M
+        reservations:
+          cpus: '0'
+          memory: 0M
     restart: unless-stopped
     volumes:
       - redis-data:/data
