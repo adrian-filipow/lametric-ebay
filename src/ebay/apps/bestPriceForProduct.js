@@ -67,11 +67,11 @@ const handleResult = (result, options) => {
         icon: 'i635',
       },
       {
-        text: '32 total entries',
+        text: `${result[0].paginationOutput[0].totalEntries[0]} entries found`,
         icon: null,
       },
       {
-        index: 4,
+        index: 3,
         chartData,
       },
     ],
@@ -88,6 +88,7 @@ const handleResult = (result, options) => {
           ? 'i10726'
           : 'i59',
     });
+    laMetricFrames.frames[4].index = 4;
   }
   return laMetricFrames;
 };
