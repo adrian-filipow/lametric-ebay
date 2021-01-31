@@ -44,3 +44,11 @@ Rate limits:
   - create .env from .example.env
   - edit docker-compose.treafik.yml (uncomment mongodb service if not using atlas)
   - docker stack deploy -c docker-compose.treafik.yml lametric-ebay
+
+### deployment info:
+- teaefik-dashboard: https://traefik.adrianfilipow.com
+- lametric-ebay-api: https://lametric-ebay-api.adrianfilipow.com
+- lametric-frontend: lametric-ebay.adrianfilipow.com (coming soon)
+
+Swarm Entrypoint IP:
+- 78.47.97.194
