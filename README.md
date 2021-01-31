@@ -52,3 +52,10 @@ Rate limits:
 
 Swarm Entrypoint IP:
 - 78.47.97.194
+
+### monitoring:
+
+  - https://grafana.adrianfilipow.com
+  - https://alertmanager.adrianfilipow.com
+  - https://unsee.adrianfilipow.com
+  - https://prometheus.adrianfilipow.com
