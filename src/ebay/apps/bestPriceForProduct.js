@@ -21,7 +21,7 @@ const { ebay } = require('../../config/config');
       },
       {
           "text": "-20 €",
-          "icon": "i10726" // i10726 (cross) if item is greater than goal - i59 (confirm) if price is lower than goal
+          "icon": "i10726" // i10726 (cross) if price is greater than goal - i59 (confirm) if price is lower than goal
       },
       {
           "text": "32 total entries",
