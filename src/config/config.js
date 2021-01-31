@@ -20,7 +20,6 @@ const envVarsSchema = Joi.object()
     REDIS_URL: Joi.string().required().description('the redis connection string'),
     EBAY_CLIENT_ID: Joi.string().required().description('the ebay client id'),
     EBAY_ENV: Joi.string().default('Sandbox').description('the ebay environment'),
-    EBAY_HEADERS_C_MARKETPLACE_ID: Joi.string().default('EBAY_DE').description('the ebay headers country marketplace id'),
   })
   .unknown();
 
@@ -64,6 +63,5 @@ module.exports = {
   ebay: {
     ebayClientId: envVars.EBAY_CLIENT_ID,
     ebayEnv: envVars.EBAY_ENV,
-    eBayHeadersCMarketplaceId: envVars.EBAY_HEADERS_C_MARKETPLACE_ID,
   },
 };
