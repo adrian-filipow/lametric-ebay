@@ -41,9 +41,8 @@ Rate limits:
 ### configuration
 
 ### deploy:
-  - create .env from .example.env
   - edit docker-compose.treafik.yml (uncomment mongodb service if not using atlas)
-  - docker stack deploy -c docker-compose.treafik.yml lametric-ebay
+  - docker stack deploy -c docker-compose.treafik.yml lametric
 
 ### deployment info:
 - teaefik-dashboard: https://traefik.adrianfilipow.com
@@ -59,3 +58,19 @@ Swarm Entrypoint IP:
   - https://alertmanager.adrianfilipow.com
   - https://unsee.adrianfilipow.com
   - https://prometheus.adrianfilipow.com
+
+### devops:
+
+- workflows
+  - main.yml
+    - test application
+    - build and push staging image
+    - rollout in staging environment
+    - external intergration testing
+    - discord notification
+  - prod.yml
+    - test application
+    - build and push production image
+    - rollout in production environment
+    - external intergration testing
+    - discord notification
