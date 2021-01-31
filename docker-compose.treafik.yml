@@ -36,7 +36,19 @@ services:
       restart_policy:
         condition: on-failure
     environment:
-      - MONGODB_URL=mongodb://mongodb:27017/lametric-ebay
+      - PORT=3000
+      - MONGODB_URL=mongodb://root:supersecretpw@mongodb:27017/lametric-ebay
+      - JWT_SECRET=thisisasamplesecret
+      - JWT_ACCESS_EXPIRATION_MINUTES=90
+      - JWT_REFRESH_EXPIRATION_DAYS=30
+      - SMTP_HOST=email-server
+      - SMTP_PORT=587
+      - SMTP_USERNAME=email-server-username
+      - SMTP_PASSWORD=email-server-password
+      - EMAIL_FROM=support@yourapp.com
+      - REDIS_URL=redis://:supersecretpw@redis:6379
+      - EBAY_CLIENT_ID=YOUREBAYCLIENTID
+      - EBAY_ENV=PRODUCTION
     depends_on:
       - mongodb
     networks:
@@ -67,9 +79,13 @@ services:
   #     - default
   #   volumes:
   #     - db-data:/data/db
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: supersecretpw
 
   redis:
     image: redis:6
+    command: redis-server --requirepass supersecretpw
     deploy:
       mode: replicated
       # do not increase: redis does not store any critical information
