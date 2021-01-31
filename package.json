@@ -16,7 +16,7 @@
     "test": "jest -i --forceExit",
     "test:watch": "jest -i --forceExit --watchAll",
     "coverage": "jest -i --coverage --forceExit",
-    "coverage:coveralls": "jest -i --coverage --forceExit --coverageReporters=text-lcov | coveralls",
+    "coverage:coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check **/*.js",
