@@ -24,7 +24,7 @@ const { ebay } = require('../../config/config');
           "icon": "i10726" // i10726 (cross) if item is greater than goal - i59 (confirm) if price is lower than goal
       },
       {
-          "text": "32 Offers",
+          "text": "32 total entries",
           "icon": null
       },
       {
@@ -43,13 +43,20 @@ const { ebay } = require('../../config/config');
 }
  */
 
+/**
+ *
+ * @param {Array} result - The result provided by the ebay api
+ * @param {Object} options - The request queries provided by the user
+ */
 const handleResult = (result, options) => {
+  // Create chart
   const chartData = [];
   for (let i = 0; i < result[0].searchResult[0].item.length; i += 1) {
     const item = result[0].searchResult[0].item[i];
     chartData.push(item.sellingStatus[0].currentPrice[0].__value__);
   }
-  const refinedResult = {
+  // end:: Create chart
+  const laMetricFrames = {
     frames: [
       {
         text: options.title,
@@ -69,8 +76,9 @@ const handleResult = (result, options) => {
       },
     ],
   };
+  // add goal to frame if provided by user
   if (options.goal) {
-    refinedResult.frames.splice(2, 0, {
+    laMetricFrames.frames.splice(2, 0, {
       text: `${
         Number.parseFloat(options.goal) -
         Number.parseFloat(result[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0].__value__)
@@ -81,9 +89,13 @@ const handleResult = (result, options) => {
           : 'i59',
     });
   }
-  return refinedResult;
+  return laMetricFrames;
 };
 
+/**
+ *
+ * @param {Object} - The request queries provided by the user
+ */
 const getBestPriceForProduct = async (options) => {
   const getBestPriceForProductClient = new Ebay({
     clientID: ebay.ebayClientId, // Client Id key provided when you register in eBay developers program.
@@ -95,6 +107,7 @@ const getBestPriceForProduct = async (options) => {
       'Accept-Encoding': 'application/gzip',
     },
   });
+  // byKeyword mode
   if (options.mode === 'byKeyword') {
     const results = getBestPriceForProductClient.findItemsByKeywords({
       keywords: options.payload,
@@ -103,6 +116,7 @@ const getBestPriceForProduct = async (options) => {
     const r = await results;
     return handleResult(r, options);
   }
+  // byProduct mode
   if (options.mode === 'byProduct') {
     const results = getBestPriceForProductClient.findItemsByProduct({
       productId: Number.parseInt(options.payload, 10),
