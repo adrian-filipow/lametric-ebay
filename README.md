@@ -47,6 +47,7 @@ Rate limits:
 ### deployment info:
 - teaefik-dashboard: https://traefik.adrianfilipow.com
 - lametric-ebay-api: https://lametric-ebay-api.adrianfilipow.com
+- staging-lametric-ebay-api: https://staging-lametric-ebay-api.adrianfilipow.com
 - lametric-frontend: lametric-ebay.adrianfilipow.com (coming soon)
 
 Swarm Entrypoint IP:
