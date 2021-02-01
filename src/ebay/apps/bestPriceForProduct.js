@@ -53,7 +53,7 @@ const handleResult = (result, options) => {
   const chartData = [];
   for (let i = 0; i < result[0].searchResult[0].item.length; i += 1) {
     const item = result[0].searchResult[0].item[i];
-    chartData.push(item.sellingStatus[0].currentPrice[0].__value__);
+    chartData.push(Number.parseInt(item.sellingStatus[0].currentPrice[0].__value__, 10));
   }
   // end:: Create chart
   const laMetricFrames = {
