@@ -96,8 +96,8 @@ Swarm Entrypoint IP:
 - **Santizing**: sanitize request data against xss and query injection
 - **CORS**: Cross-Origin Resource-Sharing enabled using [cors](https://github.com/expressjs/cors)
 - **Compression**: gzip compression with [compression](https://github.com/expressjs/compression)
-- **CI**: continuous integration with [Travis CI](https://travis-ci.org)
-- **Docker support**
+- **CI**: continuous integration with [Github actions](https://github.com/features/actions) 
+- **Deployment with Docker Swarm & Traefik** [Docker Swarm](https://docs.docker.com/get-started/swarm-deploy/) & [Traefik](https://traefik.io/)
 - **Code coverage**: using [coveralls](https://coveralls.io)
 - **Code quality**: with [Codacy](https://www.codacy.com)
 - **Git hooks**: with [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged)
