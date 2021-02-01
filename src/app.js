@@ -48,16 +48,10 @@ passport.use('jwt', jwtStrategy);
 // limit repeated failed requests to auth endpoints
 if (config.env === 'production') {
   app.use('/v1/auth', authLimiter);
+  app.use('/v1/public', PublicLimiter);
+  app.use('/v1/private', PrivateLimiter);
+  app.use('/v1/premium', PremiumLimiter);
 }
-
-// limit repeated requests to public endpoints
-app.use('/v1/public', PublicLimiter);
-
-// limit repeated requests to private endpoints
-app.use('/v1/private', PrivateLimiter);
-
-// limit repeated requests to premium endpoints
-app.use('/v1/premium', PremiumLimiter);
 
 // v1 api routes
 app.use('/v1', routes);
