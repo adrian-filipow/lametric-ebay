@@ -16,7 +16,7 @@ const { ebay } = require('../../config/config');
           "icon": "a15297" // ebay icon
       },
       {
-          "text": "799,99 €",
+          "text": "799,99 EUR",
           "icon": "i635" // star icon
       },
       {
