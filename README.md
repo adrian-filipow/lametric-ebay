@@ -104,7 +104,7 @@ Swarm Entrypoint IP:
 - **Linting**: with [ESLint](https://eslint.org) and [Prettier](https://prettier.io)
 - **Editor config**: consistent editor configuration using [EditorConfig](https://editorconfig.org)
 - **VS Code Remote Container Support** [VS Code Remote Containers Extension](https://code.visualstudio.com/docs/remote/containers)
-- **Background processing with beeQueue** [Bee Queue](https://github.com/bee-queue/bee-queue)
+- **Background processing with Bee Queue** [Bee Queue](https://github.com/bee-queue/bee-queue)
 - **Redis** [Redis](https://redis.io/)
 
 ## Commands
