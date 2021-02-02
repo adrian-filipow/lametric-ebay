@@ -53,7 +53,7 @@ const handleResult = (result, options) => {
   const chartData = [];
   for (let i = 0; i < result[0].searchResult[0].item.length; i += 1) {
     const item = result[0].searchResult[0].item[i];
-    chartData.push(Number.parseInt(item.sellingStatus[0].currentPrice[0].__value__, 10));
+    chartData.push(parseInt(item.sellingStatus[0].currentPrice[0].__value__, 10));
   }
   // end:: Create chart
   const laMetricFrames = {
@@ -80,11 +80,10 @@ const handleResult = (result, options) => {
   if (options.goal) {
     laMetricFrames.frames.splice(2, 0, {
       text: `${
-        Number.parseFloat(options.goal) -
-        Number.parseFloat(result[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0].__value__)
+        parseFloat(options.goal) - parseFloat(result[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0].__value__)
       } ${result[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0]['@currencyId']}`,
       icon:
-        Number.parseInt(options.goal, 10) - result[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0].__value__ < 0
+        parseInt(options.goal, 10) - result[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0].__value__ < 0
           ? 'i10726'
           : 'i59',
     });
@@ -120,7 +119,7 @@ const getBestPriceForProduct = async (options) => {
   // byProduct mode
   if (options.mode === 'byProduct') {
     const results = getBestPriceForProductClient.findItemsByProduct({
-      productId: Number.parseInt(options.payload, 10),
+      productId: parseInt(options.payload, 10),
       sortOrder: 'PricePlusShippingLowest', // https://developer.ebay.com/devzone/finding/callref/extra/fndcmpltditms.rqst.srtordr.html
     });
     const r = await results;
