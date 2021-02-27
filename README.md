@@ -35,13 +35,6 @@ Rate limits (with user account):
 
 ## Deployment: production
 
-### prerequisits:
-
-- running docker swarm cluster
-  - treafik v2 running on manager/s
-  - consul or etcd for sharing let's encrypt certs
-- mongodb cluster (e.g. atlas)
-
 ### configuration
 
 ### deploy:
@@ -53,9 +46,6 @@ Rate limits (with user account):
 - lametric-ebay-api: https://lametric-ebay-api.adrianfilipow.com
 - staging-lametric-ebay-api: https://staging-lametric-ebay-api.adrianfilipow.com
 - lametric-frontend: lametric-ebay.adrianfilipow.com (coming soon)
-
-Swarm Entrypoint IP:
-- 78.47.97.194
 
 ## Monitoring
 
